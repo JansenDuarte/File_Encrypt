@@ -1,10 +1,8 @@
-# File_Encrypt
- Encypt and decrypt a file to keep some data safeish
+Encypt and decrypt a file to keep some data safeish
 ---
 
 ### Information Layout
  For information about the execution of the program, look in '00.Execution_Information.txt'.
-
  For setting up the paths of encrypted/decrypted files and location of your prng private key, look in 'LocalSettings.py'
 ---
 
@@ -14,9 +12,7 @@
 
 ### How To
  When using it for the first time, remember to set up a backup of the file you want to encrypt. Safety people!
-
  Clone the repo. Set up the paths in 'src/LocalSettings.py'. Run 'main.py' with -e option to encrypt the file and remove the easily modifiable version of it. Done! The file is encrypted. No kid f-ing this up now!
-
  To view and edit the file, run 'main.py' with -d option. It will generate a .txt and open it with Windows Notepad. Look around, edit the file if you wish. Save the changes, if you made any, then run 'main.py' with -e again and it will be encrypted again!
 ---
 
