@@ -37,18 +37,21 @@ class Encryptor:
     def Encrypt_File(self):
         print('\nEncrypting...')
 
-        with open(LocalSettings.Dec_File_Path, 'r+') as dec_file:
-            data = dec_file.read()
-            fernet = Fernet(self.key)
-            encoded_data = fernet.encrypt(data.encode())
+        try:
+            with open(LocalSettings.Dec_File_Path, 'r+') as dec_file:
+                data = dec_file.read()
+                fernet = Fernet(self.key)
+                encoded_data = fernet.encrypt(data.encode())
 
+                dec_file.close()
+                os.remove(LocalSettings.Dec_File_Path)
 
-        dec_file.close()
-        os.remove(LocalSettings.Dec_File_Path)
+                with open(LocalSettings.Enc_File_Path, 'w+') as enc_file:
+                    enc_file.write(encoded_data.decode())
 
-        with open(LocalSettings.Enc_File_Path, 'w+') as enc_file:
-            enc_file.write(encoded_data.decode())
+                enc_file.close()
 
-        enc_file.close()
-
-        print('\nEncrypted file place in folder: ' + LocalSettings.Enc_File_Path + '\n')
+                print('\nEncrypted file place in folder: ' + LocalSettings.Enc_File_Path + '\n')
+                
+        except OSError:
+            print('\nNo file found in the path set in \'LocalSetting.py\'')
