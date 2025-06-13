@@ -1,4 +1,4 @@
-Encypt and decrypt a file to keep some data safeish
+Encypt and decrypt a file to keep some data safe...ish
 ===
 
 Information Layout
@@ -21,7 +21,7 @@ How To
 
 Special Thanks
 ===
- Thank you wifey, for keeping up with my shenanigans. And thank you Manolo for helping with the shenanigans!
+Thank you wifey, for keeping up with my shenanigans. And thank you Yuki and Manolo for helping with the shenanigans!
 
 
 Cheers! Keep Creating! Love, JD
