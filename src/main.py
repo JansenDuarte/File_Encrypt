@@ -24,9 +24,9 @@ else:
     print("""
     Option not present or not supported.
     
-    Use <-e>', <-E>', <--encrypt>', <--Encrypt>' for encrypting a file.
+    Use '-e', '-E', '--encrypt', '--Encrypt' for encrypting a file.
 
-    Use <-d>', <-D>', <--decrypt>', <--Decrypt>' fro decrypting a file.
+    Use '-d', '-D', '--decrypt', '--Decrypt' fro decrypting a file.
        """)
 
     exit(0) #exited normaly

@@ -1,6 +1,8 @@
 import os
 from cryptography.fernet import Fernet
-from LocalSettings import LocalSettings
+
+import LocalSettings
+from LocalSettings import LocalSettings as settings
 
 class Decryptor:
 
@@ -11,14 +13,14 @@ class Decryptor:
         
 
     def __Find_Key(self):
-        if not os.path.exists(LocalSettings.Internal_Data_Path):
+        if not os.path.exists(settings.Internal_Data_Path):
             try:
-                os.makedirs(LocalSettings.Internal_Data_Path)
+                os.makedirs(settings.Internal_Data_Path)
             except OSError:
                 pass
 
         try :
-            with open(LocalSettings.Key_Path) as key_file:
+            with open(settings.Key_Path) as key_file:
                 self.key = key_file.read()
         except FileNotFoundError:
             print("""
@@ -27,7 +29,7 @@ class Decryptor:
                 Run with option <-e> to encrypt a file and generate a private key.
                 
                 Aborting...\n""")
-            exit(0) #exited normaly
+            exit(LocalSettings.EXT_CODE_NORMAL)
 
 
 
@@ -35,21 +37,29 @@ class Decryptor:
         print('\nDecrypting...')
 
         try:
-            with open(LocalSettings.Enc_File_Path, 'r') as file:
-                data = file.read()
+            with open(settings.Enc_File_Path, 'r', encoding=settings.Sys_Encoding) as enc_file:
+                data = enc_file.read()
                 fernet = Fernet(self.key)
-                decoded_data = fernet.decrypt(data.encode())
+                decoded_data = fernet.decrypt(data.encode(encoding=settings.Sys_Encoding))
 
         except OSError:
             print('\nEncrypted file not found. Try executing with option <-e> to encrypt the file.')
-            exit(-2)
+            exit(LocalSettings.EXT_CODE_NON_EXISTING_FILE)
+        except UnicodeDecodeError as de:
+            print(f'Decoding error!\nDetails:\n\tError: {de.reason}\n\tChar. position: {de.start}')
+            exit(LocalSettings.EXT_CODE_ENCODING_ERROR)
 
-        file.close()
+        enc_file.close()
 
-        with open(LocalSettings.Dec_File_Path, 'w+') as destination:
-            destination.write(decoded_data.decode())
+        with open(settings.Dec_File_Path, 'w+') as dec_file:
+            dec_file.write(decoded_data.decode(encoding=settings.Sys_Encoding))
 
-        destination.close()
+        dec_file.close()
 
-        print('\nDecrypted file place in folder: ' + LocalSettings.Dec_File_Path + '\n')
-        os.startfile(LocalSettings.Dec_File_Path)
+        print('\nDecrypted file placed in path: ' + settings.Dec_File_Path + '\n')
+
+        try:
+            os.startfile(settings.Dec_File_Path)
+        except NotImplementedError as nie:
+            print(f'\nWindows error!\nCould not open decrypted file')
+            exit(LocalSettings.EXT_CODE_WINDOWS_ERROR)
