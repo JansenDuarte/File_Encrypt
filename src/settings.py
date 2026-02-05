@@ -1,7 +1,7 @@
 import os
 import locale
 
-class LocalSettings:
+class Settings:
 
     CURRENT_SYSTEM = os.name
 

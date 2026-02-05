@@ -2,7 +2,7 @@ import os
 import subprocess
 from exit_codes import *
 from cryptography.fernet import Fernet
-from LocalSettings import LocalSettings as sett
+from settings import Settings as sett
 
 class Decryptor:
 

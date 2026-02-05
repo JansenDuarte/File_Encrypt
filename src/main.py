@@ -1,8 +1,8 @@
 import sys
 from exit_codes import *
-from LocalSettings import LocalSettings as sett
-from Encryptor import Encryptor
-from Decryptor import Decryptor
+from settings import Settings as sett
+from encryptor import Encryptor
+from decryptor import Decryptor
 
 
 
