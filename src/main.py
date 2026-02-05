@@ -1,4 +1,6 @@
 import sys
+from exit_codes import *
+from LocalSettings import LocalSettings as sett
 from Encryptor import Encryptor
 from Decryptor import Decryptor
 
@@ -12,12 +14,12 @@ arguments = sys.argv
 if ('-e' or '-E' or '--encrypt' or '--Encrypt') in arguments:
     
     enc = Encryptor()
-    enc.Encrypt_File()
+    enc.encrypt_file()
 
 elif ('-d' or '-D' or '--decrypt' or '--Decrypt') in arguments:
     
     dec = Decryptor()
-    dec.Decrypt_File()
+    dec.decrypt_file()
 
 
 else:
@@ -26,7 +28,7 @@ else:
     
     Use '-e', '-E', '--encrypt', '--Encrypt' for encrypting a file.
 
-    Use '-d', '-D', '--decrypt', '--Decrypt' fro decrypting a file.
+    Use '-d', '-D', '--decrypt', '--Decrypt' for decrypting a file.
        """)
 
-    exit(0) #exited normaly
+    exit(EXT_CODE_NORMAL)
