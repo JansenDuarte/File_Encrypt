@@ -11,6 +11,9 @@ from decryptor import Decryptor
 
 arguments = sys.argv
 
+if ('-v' in arguments):
+    sett.VERBOSE_MODE = True
+
 if ('-e' or '-E' or '--encrypt' or '--Encrypt') in arguments:
     
     enc = Encryptor()

@@ -26,16 +26,19 @@ class Encryptor:
 
 
     def __Create_New_Key(self):
-        print('\nGenerating new key...')
+        if sett.VERBOSE_MODE:
+            print('\nGenerating new key...')
         self.key = Fernet.generate_key()
         with open(sett.Key_Path, 'wb') as key_file:
             key_file.write(self.key)
-        print('\nKey Saved! Continuing')
+        if sett.VERBOSE_MODE:
+            print('\nKey Saved! Continuing')
 
 
 
     def encrypt_file(self):
-        print('\nEncrypting...')
+        if sett.VERBOSE_MODE:
+            print('\nEncrypting...')
 
         try:
             with open(sett.Dec_File_Path, 'r+', encoding=sett.Sys_Encoding) as dec_file:
@@ -50,12 +53,14 @@ class Encryptor:
                     enc_file.write(encrypted_data.decode(encoding=sett.Sys_Encoding))
 
                 enc_file.close()
-
-                print('\nEncrypted file place in path: ' + sett.Enc_File_Path + '\n')
+                if sett.VERBOSE_MODE:
+                    print('\nEncrypted file place in path: ' + sett.Enc_File_Path + '\n')
                 
         except OSError:
-            print('\nNo file found in the path set in \'LocalSetting.py\'')
+            if sett.VERBOSE_MODE:
+                print('\nNo file found in the path set in \'LocalSetting.py\'')
             exit(EXT_CODE_NON_EXISTING_FILE)
         except UnicodeDecodeError as de:
-            print(f'Decoding error!\nDetails:\n\tError: {de.reason}\n\tChar. position: {de.start}')
+            if sett.VERBOSE_MODE:
+                print(f'Decoding error!\nDetails:\n\tError: {de.reason}\n\tChar. position: {de.start}')
             exit(EXT_CODE_ENCODING_ERROR)

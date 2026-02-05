@@ -23,18 +23,20 @@ class Decryptor:
             with open(sett.Key_Path) as key_file:
                 self.key = key_file.read()
         except FileNotFoundError:
-            print("""
-                Private key not configured.
+            if sett.VERBOSE_MODE:
+                print("""
+                    Private key not configured.
 
-                Run with option <-e> to encrypt a file and generate a private key.
-                
-                Aborting...\n""")
+                    Run with option <-e> to encrypt a file and generate a private key.
+                    
+                    Aborting...\n""")
             exit(EXT_CODE_NORMAL)
 
 
 
     def decrypt_file(self):
-        print('\nDecrypting...')
+        if sett.VERBOSE_MODE:
+            print('\nDecrypting...')
 
         try:
             with open(sett.Enc_File_Path, 'r', encoding=sett.Sys_Encoding) as enc_file:
@@ -42,26 +44,32 @@ class Decryptor:
                 fernet = Fernet(self.key)
                 decrypted_data = fernet.decrypt(data.encode(encoding=sett.Sys_Encoding))
         except OSError:
-            print('\nEncrypted file not found. Try executing with option <-e> to encrypt the file.')
+            if  sett.VERBOSE_MODE:
+                print('\nEncrypted file not found. Try executing with option <-e> to encrypt the file.')
             exit(EXT_CODE_NON_EXISTING_FILE)
         except UnicodeDecodeError as de:
-            print(f'Decoding error!\nDetails:\n\tError: {de.reason}\n\tChar. position: {de.start}')
+            if sett.VERBOSE_MODE:
+                print(f'Decoding error!\nDetails:\n\tError: {de.reason}\n\tChar. position: {de.start}')
             exit(EXT_CODE_ENCODING_ERROR)
 
         with open(sett.Dec_File_Path, 'w+') as dec_file:
             dec_file.write(decrypted_data.decode(encoding=sett.Sys_Encoding))
 
-        print('\nDecrypted file placed in path: ' + sett.Dec_File_Path + '\n')
+        if sett.VERBOSE_MODE:
+            print('\nDecrypted file placed in path: ' + sett.Dec_File_Path + '\n')
 
         if (sett.CURRENT_SYSTEM == 'posix'):
             try:
                 subprocess.call(['nvim', sett.Dec_File_Path])
             except Exception as e:
-                print(f"Something big went wrong!")
+
+                if sett.VERBOSE_MODE:
+                    print(f"Something big went wrong!")
                 exit(EXT_CODE_POSIX_ERROR)
         else:
             try:
                 os.startfile(sett.Dec_File_Path)
             except NotImplementedError as nie:
-                print(f'\nWindows error!\nCould not open decrypted file')
+                if sett.VERBOSE_MODE:
+                    print(f'\nWindows error!\nCould not open decrypted file')
                 exit(EXT_CODE_WINDOWS_ERROR)

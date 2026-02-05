@@ -3,6 +3,7 @@ import locale
 
 class Settings:
 
+    VERBOSE_MODE = False
     CURRENT_SYSTEM = os.name
 
     if (CURRENT_SYSTEM == 'nt'):
