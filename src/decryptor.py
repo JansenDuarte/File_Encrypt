@@ -9,10 +9,10 @@ class Decryptor:
     key = ''
 
     def __init__(self):
-        self.__Find_Key()
+        self.__find_key()
         
 
-    def __Find_Key(self):
+    def __find_key(self):
         if not os.path.exists(sett.Internal_Data_Path):
             try:
                 os.makedirs(sett.Internal_Data_Path)

@@ -8,10 +8,10 @@ class Encryptor:
     key = ''
 
     def __init__(self):
-        self.__Find_Key()
+        self.__find_key()
         
 
-    def __Find_Key(self):
+    def __find_key(self):
         if not os.path.exists(sett.Internal_Data_Path):
             try:
                 os.makedirs(sett.Internal_Data_Path)
@@ -22,10 +22,10 @@ class Encryptor:
             with open(sett.Key_Path, 'rb') as key_file:
                 self.key = key_file.read()
         except OSError as _e:
-            self.__Create_New_Key()
+            self.__create_new_key()
 
 
-    def __Create_New_Key(self):
+    def __create_new_key(self):
         if sett.VERBOSE_MODE:
             print('\nGenerating new key...')
         self.key = Fernet.generate_key()

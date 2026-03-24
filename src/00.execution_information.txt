@@ -1,0 +1,10 @@
+
+
+## Information about exit codes ##
+
+0  -> Program finished correctly
+1  -> Private key failure. Tried saving empty key, or could not save key to file
+2  -> Tried to decrypt a non existing file
+4  -> Encoding problems with the file. Remove special chars and try again
+32 -> Posix error while trying to open a file
+64 -> Win error while trying to open a file

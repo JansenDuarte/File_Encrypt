@@ -1,7 +1,0 @@
-
-
- ## Information about exit codes ##
-
- 0      ->  Program finished correctly
- -1     ->  Private key failure. Tried saving empty key, or could not save key to file
- -2     ->  Tried to decrypt a non existing file

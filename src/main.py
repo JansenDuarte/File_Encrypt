@@ -15,16 +15,11 @@ if ('-v' in arguments):
     sett.VERBOSE_MODE = True
 
 if ('-e' or '-E' or '--encrypt' or '--Encrypt') in arguments:
-    
     enc = Encryptor()
     enc.encrypt_file()
-
 elif ('-d' or '-D' or '--decrypt' or '--Decrypt') in arguments:
-    
     dec = Decryptor()
     dec.decrypt_file()
-
-
 else:
     print("""
     Option not present or not supported.
